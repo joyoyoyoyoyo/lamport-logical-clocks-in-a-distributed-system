@@ -21,14 +21,16 @@ object SynchronizedLifeEventPool extends App {
     }
   }
 
+//  CommunicationThread.
+
   CommunicationThread.start()
 
   def asynchronousEventHappen(body: => Unit): Unit = lifeEvents.synchronized {
     lifeEvents.enqueue(() => body)
     lifeEvents.notify()
   }
-  asynchronousEventHappen( println("Hello"))
-  asynchronousEventHappen( println("World!"))
+  asynchronousEventHappen( println(s"${Thread.currentThread().getId}: Hello"))
+  asynchronousEventHappen( println(s"${Thread.currentThread().getId}: World!"))
   Thread.sleep(500)
 
 }
