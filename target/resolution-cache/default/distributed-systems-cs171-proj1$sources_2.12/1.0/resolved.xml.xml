@@ -4,7 +4,7 @@
 		module="distributed-systems-cs171-proj1$sources_2.12"
 		revision="1.0"
 		status="integration"
-		publication="20170407195945"
+		publication="20170408135128"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
