@@ -1,11 +1,11 @@
 import java.net.ServerSocket
 
-class Server(host: String = "localhost", port: Int) extends Runnable {
+class Server(host: String = "localhost", port: Int){
   val server = new ServerSocket(port)
 
-  override def run(): Unit = {
+  def start(): Unit = {
     while(true) {
-      val client = server.accept()
+      val client = server.accept
     }
   }
 }
