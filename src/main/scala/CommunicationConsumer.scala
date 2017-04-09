@@ -3,15 +3,17 @@ import java.net.ServerSocket
 import java.util.concurrent.BlockingQueue
 
 import Server.serverSocket
-import SynchronizedLifeEventPool.CommunicationThread.setDaemon
+//import SynchronizedLifeEventPool.CommunicationThread.setDaemon
 import SynchronizedLifeEventPool.lifeEvents
+import producerconsumer.Consumer
 
-class CommunicationConsumer(message: String, queue: BlockingQueue[String]) extends Consumer[String](queue) with MessageMaker {
+class CommunicationConsumer(queue: BlockingQueue[String]) extends Consumer[String](queue) with MessageMaker {
   override def consume(message: String): Unit = {
     println(s"Thread ID: ${Thread.currentThread().getId}" +
       s"\tMessage: ${message}")
+//    queue.put(s"Thread ID: ${Thread.currentThread().getId}" +
+//      s"\tMessage: ${message}")
   }
-  setDaemon (true)
   def spawnServer(): Unit = {
     val port = 6666
     val serverSocket = new ServerSocket(port)
