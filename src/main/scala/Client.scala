@@ -1,20 +1,5 @@
 import java.net.Socket
 
-
-object Client extends App {
-  type LamportClock = Int
-  val host = "localhost"
-  val port = 6666
-  val socket = new Socket(host, port)
-
-  def getLocalProcessNumber(): Unit = {
-    val pid = 1010
-    pid
-  }
-
-
-
-  def send(msg: String, dest: String, lamportClock: LamportClock): Unit = {
-//    socket.send
-  }
+class Client(host: String = "localhost", port: Int) {
+  val client = new Socket(host, port)
 }
