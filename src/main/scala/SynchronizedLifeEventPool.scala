@@ -4,9 +4,8 @@ import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
 object SynchronizedLifeEventPool extends App {
   private val lifeEvents: BlockingQueue[() => Unit] = new LinkedBlockingQueue[ () => Unit ]()
 
-  class CommunicationThread extends Thread {
+  class CommunicationWorker extends Thread {
     setDaemon(true)
-
     def poll(): () => Unit = lifeEvents.synchronized {
       while (lifeEvents.isEmpty) lifeEvents.wait()
       lifeEvents.take()
@@ -15,7 +14,6 @@ object SynchronizedLifeEventPool extends App {
     override def run(): Unit = {
       super.run()
       while (true) {
-        lifeEvents.take()
         val lifeEvent = poll()
         lifeEvent()
       }
@@ -24,6 +22,8 @@ object SynchronizedLifeEventPool extends App {
       lifeEvents.put(() => body)
       lifeEvents.notify()
     }
+
+
   }
 
 //  CommunicationThread.
