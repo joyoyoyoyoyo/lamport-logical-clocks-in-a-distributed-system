@@ -2,15 +2,14 @@ package producerconsumer
 
 import java.util.concurrent.BlockingQueue
 
-abstract class Consumer[T](queue: BlockingQueue[T]) extends Runnable {
+abstract class Consumer[Int](queue: BlockingQueue[Int]) extends Runnable {
 
   override def run(): Unit = {
     while (true) {
-      val localEvent = queue.take()
-      println(s"${Thread.currentThread().getId}" + localEvent)
-      consume(localEvent)
+      val clockValue = queue.take()
+      consume(clockValue) // where is this retrieved?
     }
   }
 
-  def consume(x: T): Unit
+  def consume(clockValue: Int): Unit
 }
