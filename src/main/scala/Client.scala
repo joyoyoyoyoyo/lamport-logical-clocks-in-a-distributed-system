@@ -1,7 +1,7 @@
 import java.net.Socket
 
 
-object Client extends App {
+object Client {
   type LamportClock = Int
   val host = "localhost"
   val port = 6666
