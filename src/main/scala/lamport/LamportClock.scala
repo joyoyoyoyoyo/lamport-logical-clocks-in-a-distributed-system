@@ -3,7 +3,7 @@ package lamport
 /**
   * Created by AngelOrtega on 4/10/2017.
   */
-object LamportClock extends App {
+object LamportClock extends Thread {
   private var time = 0
 
   def tick(): Int = {
@@ -11,10 +11,5 @@ object LamportClock extends App {
     time
   }
 
-//  def apply(): Int = time + 1
-
-  println(LamportClock.time)
-  println(LamportClock.tick)
-  println(LamportClock.time)
-  println(LamportClock.tick)
+  override def toString = s"Thread ID: ${Thread.currentThread().getId}\t\tCurrent time: $time"
 }
