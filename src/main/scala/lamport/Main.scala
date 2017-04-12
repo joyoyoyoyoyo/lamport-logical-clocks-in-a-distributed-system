@@ -8,26 +8,28 @@ import scala.io.Source
   */
 object Main extends App {
 
-
-
+  // read in the file arguments
   val file = args(1)
   val port = args(0)
-
-  // Create the communication thread
-
-
   val events = Source.fromFile(file).getLines().toStream
+
+  // initialize the queue and clock
+  val queue = new LinkedBlockingQueue[String]()
   val clock = LamportClock
 
-//  val queue = new LinkedBlockingQueue[String]()
-//  val personLifeCycle = new PersonLifecycle(events)
+  // Create the communication thread
+  val server = new Server(queue)
+  server.start()
 
-  val person = new Person()
-//  val communicationWorker = new CommunicationWorker(person,person.queue)
+  Thread.sleep(1000)
+
+  // Create the Processing Thread
+  val person = new Person(queue,server)
+
+  for(event<- events)
+    person.process(event)
+
   person.start()
-//  communicationWorker.start()
-
-  val server = new Server(person.queue).start()
 
   while (true)
     1

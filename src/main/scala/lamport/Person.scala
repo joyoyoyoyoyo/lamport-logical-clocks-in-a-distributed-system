@@ -3,9 +3,8 @@ package lamport
 import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
 
 
-class Person extends Thread {
-//  setDaemon(true)
-  val queue = new LinkedBlockingQueue[String]
+class Person(queue: BlockingQueue[String], server: Server) extends Thread {
+  setDaemon(true)
 
   override def run(): Unit = {
     while(true) {
@@ -17,24 +16,11 @@ class Person extends Thread {
   }
 
   def process(event: String): Unit = {
-    println(event)
+    event match {
+      case "receive call" => println(queue.take())
+      case event if event.startsWith("call") => server.call()
+      case _: String => println(event)
+    }
   }
-
-//  override def run(): Unit = {
-//    while (queue.isEmpty) {
-//      val msg = queue.take() match {
-//        case msg: String => process(msg)
-//        case _ => println("error")
-//      }
-//    }
-//  }
-//    while (true) {
-//      var x = "receive"
-//      x match {
-//        case "test" => println("Hello")
-//        case "receive" => recv()
-//      }
-//    }
-//    recv()
 
 }
