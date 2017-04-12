@@ -4,10 +4,10 @@ import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
 
 
 class Person extends Thread {
-  setDaemon(true)
+//  setDaemon(true)
   val queue = new LinkedBlockingQueue[String]
 
-  def recv(): Unit = {
+  override def run(): Unit = {
     while(true) {
       val msg = queue.take() match {
         case msg: String => process(msg)
@@ -20,13 +20,21 @@ class Person extends Thread {
     println(event)
   }
 
-  override def run(): Unit = {
-    while (true) {
-      var x = "receive"
-      x match {
-        case "test" => println("Hello")
-        case "receive" => recv()
-      }
-    }
-  }
+//  override def run(): Unit = {
+//    while (queue.isEmpty) {
+//      val msg = queue.take() match {
+//        case msg: String => process(msg)
+//        case _ => println("error")
+//      }
+//    }
+//  }
+//    while (true) {
+//      var x = "receive"
+//      x match {
+//        case "test" => println("Hello")
+//        case "receive" => recv()
+//      }
+//    }
+//    recv()
+
 }
