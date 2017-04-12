@@ -27,6 +27,8 @@ object Main extends App {
   person.start()
   communicationWorker.start()
 
+  val server = new Server(communicationWorker)
+
   while (true)
     1
 //  for (event <- events) println(event)
