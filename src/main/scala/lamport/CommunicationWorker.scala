@@ -8,7 +8,10 @@ class CommunicationWorker(person: Person, messages: BlockingQueue[String]) exten
   override def run(): Unit = {
     while (true) {
       Thread.sleep(1000)
-      messages.put("receive")
+      if (x %3 == 0)
+        messages.put("receive")
+      else
+        messages.put("nope")
       x = x+1
     }
   }
