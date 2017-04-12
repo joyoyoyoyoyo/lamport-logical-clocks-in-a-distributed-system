@@ -23,11 +23,11 @@ object Main extends App {
 //  val personLifeCycle = new PersonLifecycle(events)
 
   val person = new Person()
-  val communicationWorker = new CommunicationWorker(person,person.queue)
+//  val communicationWorker = new CommunicationWorker(person,person.queue)
   person.start()
-  communicationWorker.start()
+//  communicationWorker.start()
 
-  val server = new Server(communicationWorker)
+  val server = new Server(person.queue).start()
 
   while (true)
     1

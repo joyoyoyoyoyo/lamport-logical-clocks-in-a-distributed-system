@@ -1,5 +1,6 @@
 package lamport
 
+import java.io.{BufferedOutputStream, PrintStream}
 import java.net.{InetAddress, InetSocketAddress, Socket}
 
 object Client extends App {
@@ -7,6 +8,9 @@ object Client extends App {
   val port = 9999
 
   val socket =  new Socket(host, port)
-  socket.getOutputStream.write("Hello World".getBytes)
-  socket.getOutputStream.close()
+  val out = new PrintStream(socket.getOutputStream)
+  out.print("HI")
+
+  //  socket.getOutputStream.write("Hello World2".getBytes)
+  socket.close()
 }
