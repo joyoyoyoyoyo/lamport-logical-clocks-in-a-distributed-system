@@ -1,6 +1,10 @@
 package lamport
 
+import java.io.PrintStream
+import java.net.Socket
 import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
+
+import lamport.Client.socket
 
 class CommunicationWorker(person: Person, messages: BlockingQueue[String]) extends Thread {
 //  setDaemon(true)
