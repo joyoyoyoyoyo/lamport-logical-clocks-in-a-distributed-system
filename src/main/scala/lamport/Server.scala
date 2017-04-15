@@ -6,10 +6,10 @@ import java.util.concurrent.BlockingQueue
 
 
 //import scala.sys.process.processInternal.{InputStream, OutputStream}
-
-class Server(queue: BlockingQueue[String]) extends Thread {
+// maybe do case class?
+class Server(queue: BlockingQueue[String], socket_port: Int) extends Thread {
   this.setDaemon(true)
-  val port = 9999
+  val port: Int = socket_port
 
   // spawn server
   val server = new ServerSocket(port)
@@ -29,7 +29,7 @@ class Server(queue: BlockingQueue[String]) extends Thread {
   }
 
   def call(): Unit = {
-    val socket = new Socket("localhost", 9998)
+    val socket = new Socket("localhost", port) //TODO: Handle connection refused
     val outgoingCall = new PrintStream(socket.getOutputStream)
     outgoingCall.print("i called myself")
     println("call")
