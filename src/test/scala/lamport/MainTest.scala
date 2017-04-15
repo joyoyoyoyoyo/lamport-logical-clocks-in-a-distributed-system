@@ -1,23 +1,22 @@
 package lamport
 
-import java.util
 
 import org.scalatest._
+
+import scala.collection.mutable.ListBuffer
 
 class MainTest extends FlatSpec{
 
   "A Stack" should "pop values in last-in-first-out order" in {
-    val stack = new util.Stack[Int]
-    stack.push(1)
-    stack.push(2)
-    assert(stack.pop() === 2)
-    assert(stack.pop() === 1)
+    val stack = 1:: 2:: List[Int]()
+    assert(stack.tail.head === 2)
+    assert(stack.tail.head === 2)
   }
 
   it should "throw NoSuchElementException if an empty stack is popped" in {
-    val emptyStack = new util.Stack[String]
+    val emptyStack = List[String]()
     assertThrows[NoSuchElementException] {
-      emptyStack.pop()
+      emptyStack.head
     }
   }
 }
