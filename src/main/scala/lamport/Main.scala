@@ -9,8 +9,11 @@ import scala.io.Source
 object Main extends App {
 
   // read in the file arguments
-  val file = args(1)
-  val port = args(0)
+  //TODO: Print out error usage cases
+  if (args.length < 2)
+    sys.exit()
+  val file = args(1) //TODO: test parse correctly
+  val port = args(0).toInt //TODO: test parse correctly
   val events = Source.fromFile(file).getLines().toStream
 
   // initialize the queue and clock
@@ -18,7 +21,7 @@ object Main extends App {
   val clock = LamportClock
 
   // Create the communication thread
-  val server = new Server(queue)
+  val server = new Server(queue, port)
   server.start()
 
   Thread.sleep(1000)
@@ -33,7 +36,10 @@ object Main extends App {
 
   while (true)
     1
-//  for (event <- events) println(event)
+
+  //TODO: Handle "Process finished with exit code 130 (interrupted by signal 2: SIGINT)"
+
+  //  for (event <- events) println(event)
 //  val x = (event: String) => { new Event(event) }
 //  val tick = (event: Event[String]) => {event.clock = _ + 1}
 //  val events = args.toStream
