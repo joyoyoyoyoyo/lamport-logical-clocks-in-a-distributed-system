@@ -3,8 +3,6 @@ package lamport
 
 import org.scalatest._
 
-import scala.collection.mutable.ListBuffer
-
 class MainTest extends FlatSpec{
 
   "A Stack" should "pop values in last-in-first-out order" in {
