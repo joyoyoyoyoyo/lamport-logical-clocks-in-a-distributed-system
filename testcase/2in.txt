@@ -1,0 +1,7 @@
+call 127.0.0.1 5003
+eat
+jog
+homework
+nap
+play games
+receive call
