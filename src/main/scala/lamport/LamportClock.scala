@@ -11,7 +11,8 @@ object LamportClock {
     time += 1
     time
   }
-  override def toString = s"Thread ID: ${Thread.currentThread().getId}\t\tCurrent time: $time"
+//  override def toString = s"Thread ID: ${Thread.currentThread().getId}\t\tCurrent time: $time"
+  override def toString = s"$time"
 
   def takeMax(rcvdTime: Int): Unit = {
     if (rcvdTime > time) time = rcvdTime + 1

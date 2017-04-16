@@ -48,7 +48,7 @@ class Server(listeningPort: Int, queue: BlockingQueue[String]) extends Thread {
       val socket = new Socket(domain, port)
       val outgoingCall = new PrintStream(socket.getOutputStream)
 //      val outgoingB = new DataOutputStream(socket.getOutputStream)
-      val x = LamportClock.tick().toString
+      val x = LamportClock.time.toString
       socket.getOutputStream.write(x.getBytes)
 //      outgoingB.write(x.getBytes)
 //      outgoingCall.print(s"i called $domain:$port")

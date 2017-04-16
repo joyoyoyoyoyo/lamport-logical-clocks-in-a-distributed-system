@@ -29,7 +29,7 @@ object EventLifeCycle {
           val person = new Person(queue, server,clock)
           events.foreach(person.process)
           person.start()
-          isRunning = true
+          isRunning = false
           this
 //          (port.toInt, events)
         }

@@ -1,8 +1,8 @@
 package lamport
 
-import java.util.concurrent.{BlockingQueue}
+import java.util.concurrent.BlockingQueue
 
-import helper.InvalidUsageException
+import helper.{EventLifeCycle, InvalidUsageException}
 
 import scala.util.Try
 
@@ -24,17 +24,27 @@ class Person(queue: BlockingQueue[String], server: Server, clock: LamportClock.t
     event match {
       case simple_call_regex(domain, port) =>
         if (Try(port.toInt).isSuccess) {
+          clock.tick()
           server.call(domain, port.toInt)
-          println(event + s" ${clock.time}")
+          print(s"${clock.time} ")
+          //          println(event + s" ${clock.time}")
+//          print(s"${clock.time} ")
+
         }
         else
           throw InvalidUsageException("Port is not an Int type")
       case "receive call" => {
           clock.takeMax(queue.take.toInt)
-          println("receive call" + s" ${clock.time}" )
+          print(s"${clock.time} ")
+        //          println("receive call" + s" ${clock.time}" )
       }
-//      case event if event.startsWith("call") =>
-      case _: String => println(event + s" ${clock.tick()}" )
+      case _: String => {
+        // default
+        clock.tick()
+        print(s"${clock.time} ")
+        //        println(event + s" ${clock.tick()}")
+      }
+//      case _ => EventLifeCycle.isRunning = false
     }
   }
 

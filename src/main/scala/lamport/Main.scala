@@ -18,7 +18,7 @@ object Main extends App {
   // read in the file arguments
   try {
     val server = EventLifeCycle.start(args, queue, clock)
-    while (server.isRunning)
+    while (server.isRunning )
       1
   } catch {
     case x: BindException => println("could not bind to socket")
