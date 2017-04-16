@@ -1,17 +1,15 @@
 package lamport
 
 import java.net.BindException
-import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
+import java.util.concurrent.LinkedBlockingQueue
 
 import helper.EventLifeCycle
-
-import scala.io.Source
 
 
 /**
   * Created by AngelOrtega on 4/10/2017.
   */
-object Main extends App {
+object Asg extends App {
   val queue = new LinkedBlockingQueue[String]()
   val clock = LamportClock
 
