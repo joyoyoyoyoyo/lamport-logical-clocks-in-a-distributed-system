@@ -6,9 +6,10 @@ import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
 
 import helper.ConnectionSchedulingException
 
+case class ServerCouldNotStartException(message: String) extends Exception(message)
+
 
 //import scala.sys.process.processInternal.{InputStream, OutputStream}
-// maybe do case class?
 class Server(listeningPort: Int, queue: BlockingQueue[String]) extends Thread {
   this.setDaemon(true)
 //  val queue: BlockingQueue[String] = new LinkedBlockingQueue[String]()
@@ -21,7 +22,7 @@ class Server(listeningPort: Int, queue: BlockingQueue[String]) extends Thread {
 
   override def run(): Unit = {
     try {
-      println(s"Listening on port: $port...")
+//      println(s"Listening on port: $port...")
       while (true) {
         val client = server.accept()
         //      println(s"Connection accepted from: ${client.getRemoteSocketAddress}")
@@ -34,7 +35,8 @@ class Server(listeningPort: Int, queue: BlockingQueue[String]) extends Thread {
       }
     }
     catch {
-      case e: SocketException => println("Could not start server")
+      case e: SocketException =>
+        throw ServerCouldNotStartException(s"Could not start server: ${server.getInetAddress}:${server.getLocalPort}")
     } finally {
       server.close()
     }
@@ -43,10 +45,10 @@ class Server(listeningPort: Int, queue: BlockingQueue[String]) extends Thread {
   def call(domain: String, port: Int): Unit = {
     try {
 
-      val socket = new Socket(domain, port) //TODO: Handle connection refused
+      val socket = new Socket(domain, port)
       val outgoingCall = new PrintStream(socket.getOutputStream)
 //      val outgoingB = new DataOutputStream(socket.getOutputStream)
-      val x = LamportClock.tick.toString
+      val x = LamportClock.tick().toString
       socket.getOutputStream.write(x.getBytes)
 //      outgoingB.write(x.getBytes)
 //      outgoingCall.print(s"i called $domain:$port")
