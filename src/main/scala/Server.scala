@@ -1,10 +1,7 @@
-package lamport
-
-import java.io.{DataOutputStream, PrintStream}
+import java.io.PrintStream
 import java.net.{ConnectException, _}
-import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
+import java.util.concurrent.BlockingQueue
 
-import helper.ConnectionSchedulingException
 
 case class ServerCouldNotStartException(message: String) extends Exception(message)
 

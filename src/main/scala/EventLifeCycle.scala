@@ -1,9 +1,5 @@
-package helper
-
 //import lamport.Main.{file, port}
-import java.util.concurrent.{BlockingQueue, LinkedBlockingQueue}
-
-import lamport.{LamportClock, Person, Server}
+import java.util.concurrent.BlockingQueue
 
 import scala.io.Source
 import scala.util.Try

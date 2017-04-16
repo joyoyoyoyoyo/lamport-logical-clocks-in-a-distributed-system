@@ -8,6 +8,6 @@ scalaVersion := "2.10.4"
 // SBT has non-daemon threads of its own, so the worker thread is not stopped unless we specify our application
 // to run threads in separate processes
 fork:= true
-mainClass in (Compile, run) := Some("lamport.Asg")
+mainClass in (Compile, run) := Some("Asg")
 
 exportJars := true

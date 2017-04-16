@@ -1,8 +1,5 @@
-package lamport
-
 import java.util.concurrent.BlockingQueue
 
-import helper.{EventLifeCycle, InvalidUsageException}
 
 import scala.util.Try
 
